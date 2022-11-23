@@ -1,10 +1,11 @@
 import * as dotenv from "dotenv";
-dotenv.config();
 import fetch from "node-fetch";
-globalThis.fetch = fetch;
 import * as fsLibrary from "fs";
 
-var apiKey = process.env.API_KEY;
+globalThis.fetch = fetch;
+dotenv.config();
+
+const apiKey = process.env.API_KEY;
 
 const writeFile = (fileName, data) => {
   fsLibrary.writeFile(fileName, data, (error) => {
@@ -18,9 +19,10 @@ const execution = async () => {
     const promises = [];
     for (let movieId = i; movieId < i + 50; movieId++) {
       promises.push(
-        fetch(`https://api.themoviedb.org/3/movie/3?api_key=${apiKey}`)
+        fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
       );
     }
+
     const res = await Promise.all(promises);
     for (let j = 0; j < res?.length; j++) {
       if (res[j]?.status === 200) {
