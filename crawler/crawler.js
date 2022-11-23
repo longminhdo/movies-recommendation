@@ -14,25 +14,30 @@ const writeFile = (fileName, data) => {
 };
 
 const execution = async () => {
-  const result = [];
-  for (let i = 0; i < 1000; i += 50) {
-    const promises = [];
-    for (let movieId = i; movieId < i + 50; movieId++) {
-      promises.push(
-        fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
-      );
-    }
-
-    const res = await Promise.all(promises);
-    for (let j = 0; j < res?.length; j++) {
-      if (res[j]?.status === 200) {
-        const data = await res[j].json();
-        result.push(data);
+  for (let chunk = 0; chunk < 200; chunk++) {
+    const result = [];
+    for (let i = chunk * 5000; i < (chunk + 1) * 5000; i += 200) {
+      const promises = [];
+      for (let movieId = i; movieId <= i + 200; movieId++) {
+        promises.push(
+          fetch(
+            `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`
+          )
+        );
       }
-    }
-  }
 
-  writeFile("movies.json", JSON.stringify(result));
+      const res = await Promise.all(promises);
+      for (let j = 0; j < res?.length; j++) {
+        if (res[j]?.status === 200) {
+          const data = await res[j].json();
+          result.push(data);
+        }
+      }
+      console.log(`${i + 200}/1000000`);
+    }
+
+    writeFile(`movies_${chunk}.json`, JSON.stringify(result));
+  }
 };
 
 execution();
