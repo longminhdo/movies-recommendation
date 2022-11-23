@@ -23,9 +23,9 @@ const writeFile2 = (fileName, data) => {
 const execution = async () => {
   for (let chunk = 0; chunk < 200; chunk++) {
     const result = [];
-    for (let i = chunk * 5000; i < (chunk + 1) * 5000; i += 200) {
+    for (let i = chunk * 5000; i < (chunk + 1) * 5000; i += 500) {
       const promises = [];
-      for (let movieId = i; movieId <= i + 200; movieId++) {
+      for (let movieId = i; movieId <= i + 500; movieId++) {
         promises.push(
           fetch(
             `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`
@@ -40,7 +40,7 @@ const execution = async () => {
           result.push(data);
         }
       }
-      console.log(`${i + 200}/1000000`);
+      console.log(`${i + 500}/1000000`);
     }
 
     writeFile(`movies_${chunk}.json`, JSON.stringify(result));
