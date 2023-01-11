@@ -13,13 +13,6 @@ const writeFile = async (fileName, data) => {
   });
 };
 
-const writeFile2 = (fileName, data) => {
-  // return console.log(data);
-  fsLibrary.appendFile(fileName, data, (error) => {
-    if (error) throw err;
-  });
-};
-
 const execution = async () => {
   for (let chunk = 0; chunk < 200; chunk++) {
     const result = [];
