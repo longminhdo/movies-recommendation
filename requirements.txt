@@ -1,0 +1,7 @@
+ipykernel
+matplotlib
+nltk
+pandas
+scikit-learn
+# aiohttp
+# asyncio
