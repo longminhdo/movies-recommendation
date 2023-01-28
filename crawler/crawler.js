@@ -1,11 +1,10 @@
 import * as dotenv from 'dotenv';
 import fetch from 'node-fetch';
 import * as fsLibrary from 'fs';
+import { parse } from 'json2csv';
 
 globalThis.fetch = fetch;
 dotenv.config();
-
-const TestIdList = [];
 
 const apiKey = process.env.API_KEY;
 
@@ -15,9 +14,9 @@ const writeFile = async (fileName, data) => {
   });
 };
 
-const execution = async () => {
+const getDataSet = async () => {
+  const result = [];
   for (let chunk = 0; chunk < 200; chunk++) {
-    const result = [];
     for (let i = chunk * 5000; i < (chunk + 1) * 5000; i += 250) {
       const promises = [];
       for (let movieId = i; movieId <= i + 250; movieId++) {
@@ -42,41 +41,8 @@ const execution = async () => {
       }
       console.log(`${i + 250}/1000000`);
     }
-
-    writeFile(`movies_${chunk}.json`, JSON.stringify(result));
   }
+  writeFile(`movies.csv`, parse(result));
 };
 
-const getGroundTruth = async () => {
-  const result = [];
-
-  for (let i = 0; i < TestIdList?.length; i += 200) {
-    const promises = [];
-    //https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=ae91cd69ae08a3b30879b9cb8a77e539
-    for (let j = i; j <= i + 200; j++) {
-      const movieId = TestIdList[j];
-      promises.push(
-        fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=ae91cd69ae08a3b30879b9cb8a77e539`,
-        ),
-      );
-    }
-
-    try {
-      const res = await Promise.all(promises);
-      for (let j = 0; j < res?.length; j++) {
-        if (res[j]?.status === 200) {
-          const data = await res[j].json();
-          //handle result here
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    console.log(`${i + 200}/5000`);
-  }
-
-  writeFile(`movies_${chunk}.json`, JSON.stringify(result));
-};
-
-execution();
+getDataSet();
