@@ -1,7 +1,8 @@
+aiohttp
+asyncio
 ipykernel
 matplotlib
 nltk
 pandas
 scikit-learn
-# aiohttp
-# asyncio
+wordcloud
