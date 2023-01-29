@@ -4,7 +4,7 @@ from ast import literal_eval
 from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
 
-df = pd.read_csv('data/movies.csv')
+df = pd.read_csv('../data/movies.csv')
 
 # Keep only the name of `genres`
 df['genres'] = df['genres'].apply(literal_eval)
