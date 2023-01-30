@@ -41,6 +41,7 @@ async def async_recommendations_batch(movie_id_list):
         
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
+print('Crawling from themoviedb...')
 start_time = time.time()
 
 for batch in range(0, len(test_id_list), async_batch_size):
