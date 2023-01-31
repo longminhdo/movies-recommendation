@@ -31,9 +31,7 @@ const getDataSet = async () => {
         for (let j = 0; j < res?.length; j++) {
           if (res[j]?.status === 200) {
             const data = await res[j].json();
-            if (data?.genres?.length > 0 && data?.overview !== '') {
-              result.push(data);
-            }
+            result.push(data);
           }
         }
       } catch (error) {
