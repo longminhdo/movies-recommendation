@@ -4,13 +4,13 @@
 
 ### `NodeJS - Node 18`
 
-Go to [https://nodejs.org/en/](https://nodejs.org/en/) and download the LTS version based on your OS.
+Go to https://nodejs.org/en/ and download the LTS version based on your OS.
 
 Run the Installer. Everything will be set up automatically.
 
 ### `Python 3.9.7`
 
-Go to [https://www.python.org/downloads/release/python-390/](https://www.python.org/downloads/release/python-390/) and download the LTS version based on your OS.
+Go to https://www.python.org/downloads/release/python-390/ and download the LTS version based on your OS.
 
 Run the Installer. Everything will be set up automatically.
 
